@@ -12,12 +12,12 @@ service munin-node restart</code></pre>
 
 For the phpfpm_status and phpfpm_connections plugins, you'll need to enable the status feature included in newer versions (5.3.2+) of PHP-FPM. Open up the php5-fpm.conf, /etc/php5/fpm, and uncomment line 186 for the pm.status_path directive:
 
-<pre><code>pm.status_path = /status</code></pre>
+<pre><code>pm.status_path = /fpm-status</code></pre>
 
 Jérôme Loyet from the Nginx forums provided some useful insight on how to get this working with Nginx. You'll essentially set 
 up the status location directive like this:
 
-<pre><code>location ~ ^/(status|ping)$ {
+<pre><code>location ~ ^/(fpm-status|fpm-ping)$ {
     include fastcgi_params;
     fastcgi_pass backend;
     fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
@@ -27,7 +27,7 @@ up the status location directive like this:
     deny all;
 }</code></pre>
 
-You'll need to make sure that from within your box, you can curl /status with # curl http://localhost/status. You should get a response similar to this:
+You'll need to make sure that from within your box, you can curl /fpm-status with # curl http://localhost/fpm-status. You should get a response similar to this:
 
 accepted conn:    40163
 pool:             www
@@ -42,9 +42,9 @@ The phpfpm_status plugin is particularly useful if you're using dynamic process 
 
 h3. Environment variables
 
-* env.url: Set a custom url, defaults to _http://127.0.0.1/status_
+* env.url: Set a custom url, defaults to _http://127.0.0.1/fpm-status_
 * env.ports: Set a custom port, defaults to _80_
-* env.phpbin: Set a custom php binary name, defaults to _php5-fpm_
+* env.phpbin: Set a custom php binary name, defaults to _php-fpm_
 
 h4. Requirements:
 
