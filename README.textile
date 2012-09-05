@@ -23,6 +23,7 @@ h3. Environment variables
 * env.fpm_host: Set a custom host, defaults to _127.0.0.1_
 * env.fpm_port: Set a custom port, defaults to _9000_
 * env.fpm_path: Set a custom path, defaults to _/status_
+* env.phpbin: Set a custom php binary name, defaults to _php-fpm_
 
 h4. Requirements:
 
